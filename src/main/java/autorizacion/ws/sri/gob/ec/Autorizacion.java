@@ -1,21 +1,22 @@
 package autorizacion.ws.sri.gob.ec;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "autorizacion", propOrder = {
-    "estado",
-    "numeroAutorizacion",
-    "fechaAutorizacion",
-    "ambiente",
-    "comprobante",
-    "mensajes"
+        "estado",
+        "numeroAutorizacion",
+        "fechaAutorizacion",
+        "ambiente",
+        "comprobante",
+        "mensajes"
 })
 public class Autorizacion {
 
@@ -24,7 +25,10 @@ public class Autorizacion {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaAutorizacion;
     protected String ambiente;
+
+    @XmlJavaTypeAdapter(AdapterCDATA.class)
     protected String comprobante;
+
     protected Autorizacion.Mensajes mensajes;
 
     public String getEstado() {
@@ -77,7 +81,7 @@ public class Autorizacion {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "mensaje"
+            "mensaje"
     })
     public static class Mensajes {
 
