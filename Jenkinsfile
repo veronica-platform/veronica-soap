@@ -26,7 +26,7 @@ pipeline {
             steps {
                 rtMavenRun (
                     tool: 'MAVEN_HOME',
-                    pom: 'veronica-soap/pom.xml',
+                    pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: 'deployer',
                     resolverId: 'resolver'
