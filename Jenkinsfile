@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: "https://github.com/veronica-platform/veronica-soap.git"
+                git branch: 'develop', url: "https://github.com/veronica-platform/veronica-soap.git"
             }
         }
         stage('Artifactory configuration') {
