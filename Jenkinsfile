@@ -1,12 +1,7 @@
 pipeline {
-    agent {  label 'infra' }
+    agent {  label 'docker' }
     stages {
-        stage('Clone') {
-            steps {
-                git branch: 'develop', url: "https://github.com/veronica-platform/veronica-soap.git"
-            }
-        }
-        stage('Artifactory configuration') {
+        stage('Setup') {
             steps {
                 rtMavenDeployer(
                     id: 'deployer',
@@ -22,18 +17,20 @@ pipeline {
                 )
             }
         }
-        stage('Exec Maven') {
+        stage('Build') {
             steps {
-                rtMavenRun (
-                    tool: 'MAVEN_HOME',
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: 'deployer',
-                    resolverId: 'resolver'
-                )
+                configFileProvider([configFile(fileId: 'rp_maven_settings', variable: 'MAVEN_SETTINGS')]) {
+                    rtMavenRun (
+                        tool: 'MAVEN_3.8.3',
+                        pom: 'pom.xml',
+                        goals: '-s $MAVEN_SETTINGS clean install',
+                        deployerId: 'deployer',
+                        resolverId: 'resolver'
+                    )
+                }
             }
         }
-        stage('Publish build info') {
+        stage('Release') {
             steps {
                 rtPublishBuildInfo (
                     serverId: 'rp-artifactory-server'
