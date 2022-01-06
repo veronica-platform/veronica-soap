@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.soap.client;
+package ec.veronica.soap.client;
 
 import autorizacion.ws.sri.gob.ec.AutorizacionComprobantesOffline;
 import autorizacion.ws.sri.gob.ec.AutorizacionComprobantesOfflineService;
