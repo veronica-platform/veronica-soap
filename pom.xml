@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rolandopalermo.facturacion.ec</groupId>
+    <groupId>ec.veronica</groupId>
     <version>1.0.0-SNAPSHOT</version>
     <artifactId>veronica-soap</artifactId>
 
@@ -25,7 +25,13 @@
         <snapshotRepository>
             <id>snapshots</id>
             <name>8cce1698cf0b-snapshots</name>
-            <url>https://jfrog.rolandopalermo.com/artifactory/libs-release-local</url>
+            <url>https://jfrog.rolandopalermo.com/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <scm>
+        <url>https://github.com/veronica-platform/veronica-soap</url>
+        <connection>scm:git:https://github.com/veronica-platform/veronica-soap.git</connection>
+        <developerConnection>scm:git:https://github.com/veronica-platform/veronica-soap.git</developerConnection>
+    </scm>
 </project>

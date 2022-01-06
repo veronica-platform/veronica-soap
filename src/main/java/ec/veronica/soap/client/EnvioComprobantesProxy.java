@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.soap.client;
+package ec.veronica.soap.client;
 
 import recepcion.ws.sri.gob.ec.RecepcionComprobantesOffline;
 import recepcion.ws.sri.gob.ec.RecepcionComprobantesOfflineService;
