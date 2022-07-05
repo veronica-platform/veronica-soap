@@ -1,49 +1,37 @@
+@Library("veronica-jenkins-shared-library") _
+
 pipeline {
-    agent {  label 'docker' }
+    agent {  label 'contabo-vps' }
+    options {
+        skipDefaultCheckout()
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        timeout(time: 10, unit: "MINUTES")
+    }
+    tools {
+        maven "MAVEN_3.8.6"
+    }
+    parameters {
+        string(name:'TAG_NAME', defaultValue:'main', description:'')
+    }
     stages {
-        stage('Setup') {
+        stage('Preparation') {
             steps {
-                rtMavenDeployer(
-                    id: 'deployer',
-                    serverId: 'rp-artifactory-server',
-                    releaseRepo: 'libs-release-local',
-                    snapshotRepo: 'libs-snapshot-local'
-                )
-                rtMavenResolver(
-                    id: 'resolver',
-                    serverId: 'rp-artifactory-server',
-                    releaseRepo: 'libs-release',
-                    snapshotRepo: 'libs-snapshot'
-                )
-            }
-        }
-        stage('Build') {
-            steps {
-                configFileProvider([configFile(fileId: 'rp_maven_settings', variable: 'MAVEN_SETTINGS')]) {
-                    rtMavenRun (
-                        tool: 'MAVEN_3.8.3',
-                        pom: 'pom.xml',
-                        goals: '-s $MAVEN_SETTINGS clean install',
-                        deployerId: 'deployer',
-                        resolverId: 'resolver'
-                    )
+                script {
+                    flow.init()
+                    flow.withStage("Build", {
+                        flow.build()
+                    })
                 }
             }
         }
-        stage('Release') {
+        stage("Release") {
             steps {
-                rtPublishBuildInfo (
-                    serverId: 'rp-artifactory-server'
-                )
-                rtAddInteractivePromotion (
-                    serverId: 'rp-artifactory-server',
-                    buildName: JOB_NAME,
-                    buildNumber: BUILD_NUMBER
-                )
+                script {
+                    flow.release()
+                }
             }
         }
     }
-
     post {
         always {
             cleanWs()
