@@ -7,6 +7,7 @@
     <groupId>ec.veronica</groupId>
     <version>0.0.1</version>
     <artifactId>veronica-soap</artifactId>
+
     <name>veronica-soap</name>
 
     <properties>
@@ -20,7 +21,8 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/rolandopalermo/veronica-soap</url>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/veronica-platform/veronica-soap</url>
         </repository>
     </distributionManagement>
 </project>
