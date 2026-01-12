@@ -30,4 +30,4 @@ jobs:
       - name: Publish (mvn deploy)
         run: ./mvnw deploy -s $GITHUB_WORKSPACE/settings.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.JAVA_MAVE_TOKEN }}
