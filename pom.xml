@@ -18,6 +18,13 @@
 
     <distributionManagement>
         <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/rolandopalermo/veronica-soap</url>
+        </repository>
+    </distributionManagement>
+
+    <!--<distributionManagement>
+        <repository>
             <id>central</id>
             <name>8cce1698cf0b-releases</name>
             <url>https://jfrog.rolandopalermo.com/artifactory/libs-release-local</url>
@@ -33,5 +40,5 @@
         <url>https://github.com/veronica-platform/veronica-soap</url>
         <connection>scm:git:https://github.com/veronica-platform/veronica-soap.git</connection>
         <developerConnection>scm:git:https://github.com/veronica-platform/veronica-soap.git</developerConnection>
-    </scm>
+    </scm>-->
 </project>

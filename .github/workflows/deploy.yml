@@ -1,0 +1,4 @@
+- name: Publish to GitHub Packages
+  run: mvn -DskipTests deploy
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
