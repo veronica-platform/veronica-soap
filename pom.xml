@@ -16,22 +16,22 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>8cce1698cf0b-releases</name>
-            <url>https://jfrog.rolandopalermo.com/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>8cce1698cf0b-snapshots</name>
-            <url>https://jfrog.rolandopalermo.com/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>central</id>-->
+<!--            <name>8cce1698cf0b-releases</name>-->
+<!--            <url>https://jfrog.rolandopalermo.com/artifactory/libs-release-local</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>snapshots</id>-->
+<!--            <name>8cce1698cf0b-snapshots</name>-->
+<!--            <url>https://jfrog.rolandopalermo.com/artifactory/libs-snapshot-local</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
 
-    <scm>
-        <url>https://github.com/veronica-platform/veronica-soap</url>
-        <connection>scm:git:https://github.com/veronica-platform/veronica-soap.git</connection>
-        <developerConnection>scm:git:https://github.com/veronica-platform/veronica-soap.git</developerConnection>
-    </scm>
+<!--    <scm>-->
+<!--        <url>https://github.com/veronica-platform/veronica-soap</url>-->
+<!--        <connection>scm:git:https://github.com/veronica-platform/veronica-soap.git</connection>-->
+<!--        <developerConnection>scm:git:https://github.com/veronica-platform/veronica-soap.git</developerConnection>-->
+<!--    </scm>-->
 </project>

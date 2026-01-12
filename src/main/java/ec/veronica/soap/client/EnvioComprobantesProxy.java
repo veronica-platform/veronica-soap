@@ -5,6 +5,7 @@ import recepcion.ws.sri.gob.ec.RecepcionComprobantesOfflineService;
 import recepcion.ws.sri.gob.ec.RespuestaSolicitud;
 
 import javax.xml.namespace.QName;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,8 +14,10 @@ public class EnvioComprobantesProxy {
     private RecepcionComprobantesOffline port;
     private static RecepcionComprobantesOfflineService service;
 
-    public EnvioComprobantesProxy(String wsdlLocation) throws MalformedURLException {
-        URL url = new URL(wsdlLocation);
+    public EnvioComprobantesProxy(String wsdlFileLocation) throws MalformedURLException {
+        File wsdlFile = new File(wsdlFileLocation);
+        URL url = wsdlFile.toURI().toURL();
+
         QName qname = new QName("http://ec.gob.sri.ws.recepcion", "RecepcionComprobantesOfflineService");
         service = new RecepcionComprobantesOfflineService(url, qname);
         port = service.getRecepcionComprobantesOfflinePort();
