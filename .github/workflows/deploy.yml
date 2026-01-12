@@ -12,6 +12,9 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -45,4 +48,6 @@ jobs:
         run: mvn -B -DskipTests clean package
 
       - name: Publish (mvn deploy)
-        run: mvn -B -DskipTests deploy
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
