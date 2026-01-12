@@ -7,7 +7,6 @@
     <groupId>ec.veronica</groupId>
     <version>1.0.0</version>
     <artifactId>veronica-soap</artifactId>
-
     <name>veronica-soap</name>
 
     <properties>
