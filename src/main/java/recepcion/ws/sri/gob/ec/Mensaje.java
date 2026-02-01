@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "mensaje", propOrder = {
-    "identificador",
-    "mensaje",
-    "informacionAdicional",
-    "tipo"
+        "identificador",
+        "mensaje",
+        "informacionAdicional",
+        "tipo"
 })
 public class Mensaje {
 
@@ -48,6 +48,16 @@ public class Mensaje {
 
     public void setTipo(String value) {
         this.tipo = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Mensaje{" +
+                "identificador='" + identificador + '\'' +
+                ", mensaje='" + mensaje + '\'' +
+                ", informacionAdicional='" + informacionAdicional + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 
 }
