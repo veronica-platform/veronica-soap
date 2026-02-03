@@ -35,12 +35,7 @@ public class SriRecepcionClient {
 
         this.service = getOrCreateCachedService(this.env);
 
-        this.portTL = new ThreadLocal<RecepcionComprobantesOffline>() {
-            @Override
-            protected RecepcionComprobantesOffline initialValue() {
-                return createConfiguredPort();
-            }
-        };
+        this.portTL = ThreadLocal.withInitial(() -> createConfiguredPort());
     }
 
     public SriEnvironment environment() {
