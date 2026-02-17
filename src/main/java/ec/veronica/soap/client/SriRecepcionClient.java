@@ -2,14 +2,10 @@ package ec.veronica.soap.client;
 
 import recepcion.ws.sri.gob.ec.RecepcionComprobantesOffline;
 import recepcion.ws.sri.gob.ec.RecepcionComprobantesOfflineService;
+import recepcion.ws.sri.gob.ec.RespuestaSolicitud;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,6 +34,10 @@ public class SriRecepcionClient {
         this.portTL = ThreadLocal.withInitial(() -> createConfiguredPort());
     }
 
+    public static SriRecepcionClient forEnv(SriEnvironment env) {
+        return new SriRecepcionClient(env, SriRecepcionDefaults.forEnv(env));
+    }
+
     public SriEnvironment environment() {
         return env;
     }
@@ -50,9 +50,20 @@ public class SriRecepcionClient {
         portTL.remove();
     }
 
+    /**
+     * Tu operación principal
+     */
+    public RespuestaSolicitud validarComprobante(byte[] xml) {
+        return port().validarComprobante(xml);
+    }
+
+    // -----------------------
+    // Internals
+    // -----------------------
+
     private RecepcionComprobantesOffline createConfiguredPort() {
         RecepcionComprobantesOffline port = service.getRecepcionComprobantesOfflinePort();
-        configurePort(port, config);
+        SriSoapPorts.configure(port, config);
         return port;
     }
 
@@ -72,15 +83,6 @@ public class SriRecepcionClient {
         String wsdlClasspath = wsdlClasspathFor(env);
         URL wsdlUrl = loadWsdlFromClasspath(wsdlClasspath);
         return new RecepcionComprobantesOfflineService(wsdlUrl, QNAME);
-    }
-
-    private static void configurePort(Object port, SriRecepcionConfig config) {
-        BindingProvider bp = (BindingProvider) port;
-        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, config.endpoint());
-        bp.getRequestContext().put("com.sun.xml.ws.connect.timeout", config.connectTimeoutMs());
-        bp.getRequestContext().put("com.sun.xml.ws.request.timeout", config.readTimeoutMs());
-        Map<String, List<String>> headers = new HashMap<>();
-        bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, headers);
     }
 
     private static String wsdlClasspathFor(SriEnvironment env) {

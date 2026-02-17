@@ -5,12 +5,7 @@ import autorizacion.ws.sri.gob.ec.AutorizacionComprobantesOfflineService;
 import autorizacion.ws.sri.gob.ec.RespuestaComprobante;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -71,7 +66,7 @@ public class SriAutorizacionClient {
 
     private AutorizacionComprobantesOffline createConfiguredPort() {
         AutorizacionComprobantesOffline port = service.getAutorizacionComprobantesOfflinePort();
-        configurePort(port, config);
+        SriSoapPorts.configure(port, config);
         return port;
     }
 
@@ -91,23 +86,6 @@ public class SriAutorizacionClient {
         String wsdlClasspath = wsdlClasspathFor(env);
         URL wsdlUrl = loadWsdlFromClasspath(wsdlClasspath);
         return new AutorizacionComprobantesOfflineService(wsdlUrl, QNAME);
-    }
-
-    private static void configurePort(Object port, SriAutorizacionConfig config) {
-        BindingProvider bp = (BindingProvider) port;
-
-        // Endpoint real (sin ?wsdl)
-        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, config.endpoint());
-
-        // Timeouts: seteo ambos (internal y non-internal) para máxima compatibilidad en Java 8
-        bp.getRequestContext().put("com.sun.xml.ws.connect.timeout", config.connectTimeoutMs());
-        bp.getRequestContext().put("com.sun.xml.ws.request.timeout", config.readTimeoutMs());
-        bp.getRequestContext().put("com.sun.xml.internal.ws.connect.timeout", config.connectTimeoutMs());
-        bp.getRequestContext().put("com.sun.xml.internal.ws.request.timeout", config.readTimeoutMs());
-
-        // Headers (por consistencia con tu RecepcionClient)
-        Map<String, List<String>> headers = new HashMap<>();
-        bp.getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS, headers);
     }
 
     private static String wsdlClasspathFor(SriEnvironment env) {

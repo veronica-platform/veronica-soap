@@ -35,7 +35,7 @@ class SriRecepcionClientTest {
     }
 
     @Test
-    void configurePort_setsEndpointTimeoutsAndHeaders() throws Exception {
+    void configurePort_setsEndpointTimeoutsAndHeaders() {
         // Arrange
         SriRecepcionConfig cfg = SriRecepcionConfig.builder()
                 .endpoint("https://example.com/RecepcionComprobantesOfflineService")
@@ -45,12 +45,8 @@ class SriRecepcionClientTest {
 
         DummyBindingProvider dummyPort = new DummyBindingProvider();
 
-        // Act: invocar private static configurePort(Object, SriRecepcionConfig)
-        Method m = SriRecepcionClient.class.getDeclaredMethod(
-                "configurePort", Object.class, SriRecepcionConfig.class
-        );
-        m.setAccessible(true);
-        m.invoke(null, dummyPort, cfg);
+        // Act: util compartido
+        SriSoapPorts.configure(dummyPort, cfg);
 
         // Assert
         Map<String, Object> ctx = dummyPort.getRequestContext();

@@ -2,7 +2,7 @@ package ec.veronica.soap.client;
 
 import java.util.Objects;
 
-public class SriAutorizacionConfig {
+public class SriAutorizacionConfig implements SriSoapPortConfig {
 
     private final String endpoint;
     private final int connectTimeoutMs;
